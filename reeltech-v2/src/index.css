@@ -1,0 +1,26 @@
+@import "tailwindcss";
+
+:root {
+  background-color: #f3f4f6;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  min-height: 100vh;
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif;
+}
+
+#root {
+  width: 100%;
+  max-width: 480px; /* 모바일 뷰 고정 */
+  min-height: 100vh;
+  background-color: white;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+  position: relative;
+  overflow: hidden;
+}
+
+/* v4에서는 별도의 theme 정의를 css 내에서 할 수도 있지만, 
+   기존 tailwind.config.js 설정을 유지하기 위해 여기서는 스타일만 정의합니다. */
