@@ -13,7 +13,7 @@ export default {
         'xs': '480px',
       },
       fontFamily: {
-        sans: ['Inter', 'sans-serif'], // Assuming Inter or system font
+        sans: ['Pretendard', 'Inter', 'sans-serif'],
       }
     },
   },

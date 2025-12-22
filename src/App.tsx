@@ -36,7 +36,7 @@ function App() {
             metrics: { fun: 5, informative: 5, hook: 5 },
             comment: "Great video!"
         });
-        console.log("Review Submitted! +50 Points");
+        console.log("평가 제출 완료! +50 포인트");
      } catch (e) {
          console.log("Submission failed (expected if no config)");
      }

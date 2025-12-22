@@ -54,8 +54,8 @@ export const AttendanceModal: React.FC = () => {
              <div className="absolute -top-10 -right-10 w-32 h-32 bg-yellow-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob"></div>
              <div className="absolute -bottom-10 -left-10 w-32 h-32 bg-primary rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-2000"></div>
 
-            <h2 className="text-2xl font-bold text-gray-800 mb-2 relative z-10">Daily Check-in!</h2>
-            <p className="text-gray-500 mb-6 text-center text-sm relative z-10">Get your daily points to boost your earnings.</p>
+            <h2 className="text-2xl font-bold text-gray-800 mb-2 relative z-10">매일매일 출석체크!</h2>
+            <p className="text-gray-500 mb-6 text-center text-sm relative z-10">오늘도 출석하고 포인트를 받아보세요.</p>
 
             <div className="relative mb-6">
               <div className="w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center border-4 border-dashed border-gray-300">
@@ -78,7 +78,7 @@ export const AttendanceModal: React.FC = () => {
                 onClick={handleClaim}
                 className="w-full py-3 bg-primary text-white rounded-xl font-bold shadow-lg hover:bg-red-600 transition-colors relative z-10"
               >
-                Claim +100 Pts
+                100P 받기
               </button>
             ) : (
               <motion.div 
@@ -86,7 +86,7 @@ export const AttendanceModal: React.FC = () => {
                 animate={{ opacity: 1, y: 0 }}
                 className="text-green-600 font-bold text-lg"
               >
-                Success!
+                지급 완료!
               </motion.div>
             )}
 
