@@ -28,18 +28,9 @@ export const EvaluationSheet: React.FC<EvaluationSheetProps> = ({ isOpen, onClos
     <AnimatePresence>
       {isOpen && (
         <>
-          {/* Backdrop */}
+          {/* Sheet - No Backdrop, fixed height */}
           <motion.div
-            className="absolute inset-0 bg-black/50 z-40 backdrop-blur-sm"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={onClose}
-          />
-          
-          {/* Sheet */}
-          <motion.div
-            className="absolute bottom-0 left-0 w-full bg-white rounded-t-3xl z-50 p-6 shadow-2xl overflow-y-auto max-h-[85vh]"
+            className="absolute bottom-0 left-0 w-full bg-white rounded-t-3xl z-50 p-6 shadow-2xl overflow-y-auto h-[60vh]"
             initial={{ y: "100%" }}
             animate={{ y: 0 }}
             exit={{ y: "100%" }}

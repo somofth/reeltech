@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { type Campaign } from '../../services/mockData';
 import { useAppStore } from '../../store/useAppStore';
-import { CircleHelp } from 'lucide-react';
+import { CircleHelp, ThumbsUp, ThumbsDown } from 'lucide-react';
 
 interface VideoPlayerProps {
   campaign: Campaign;
@@ -52,23 +52,19 @@ export const VideoPlayer: React.FC<VideoPlayerProps> = ({ campaign, isActive }) 
 
        {/* 5. Sidebar Actions (Mock) + Profile Icon moved here */}
        <div className="absolute bottom-24 right-4 z-20 flex flex-col gap-4 items-center">
-          <div className="flex flex-col items-center gap-1">
-             <div className="w-10 h-10 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center">
-               <span className="text-xl">❤️</span>
+          <div className="flex flex-col items-center gap-4">
+             <div className="flex flex-col items-center gap-1">
+                <div className="w-10 h-10 bg-black/40 backdrop-blur-md rounded-full flex items-center justify-center border border-white/20">
+                  <ThumbsUp className="w-5 h-5 text-white" />
+                </div>
+                <span className="text-[10px] font-bold text-white drop-shadow-md">좋아요</span>
              </div>
-             <span className="text-xs font-bold text-white">1.2k</span>
-          </div>
-          <div className="flex flex-col items-center gap-1">
-             <div className="w-10 h-10 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center">
-               <span className="text-xl">💬</span>
+             <div className="flex flex-col items-center gap-1">
+                <div className="w-10 h-10 bg-black/40 backdrop-blur-md rounded-full flex items-center justify-center border border-white/20">
+                  <ThumbsDown className="w-5 h-5 text-white" />
+                </div>
+                <span className="text-[10px] font-bold text-white drop-shadow-md">지루해요</span>
              </div>
-             <span className="text-xs font-bold text-white">342</span>
-          </div>
-          <div className="flex flex-col items-center gap-1">
-             <div className="w-10 h-10 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center">
-               <span className="text-xl">🔗</span>
-             </div>
-             <span className="text-xs font-bold text-white">공유</span>
           </div>
           
           {/* Profile Icon (Moved from left content) */}

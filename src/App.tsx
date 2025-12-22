@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
 import { MobileLayout } from './components/layout/MobileLayout';
 import { SplashScreen } from './components/splash/SplashScreen';
 import { AttendanceModal } from './components/attendance/AttendanceModal';
@@ -59,8 +60,20 @@ function App() {
       <AttendanceModal />
       {!isSplashVisible && (
         <>
-          <TimerHeader onOpenEvaluation={() => setIsEvaluationOpen(true)} />
-          <VideoFeed />
+          <motion.div
+            className="w-full h-full relative bg-black"
+            animate={{
+              height: isEvaluationOpen ? '40vh' : '100%',
+              scale: isEvaluationOpen ? 0.95 : 1,
+              borderRadius: isEvaluationOpen ? '20px' : '0px',
+              y: isEvaluationOpen ? 10 : 0,
+            }}
+            transition={{ type: 'spring', damping: 25, stiffness: 300 }}
+          >
+            <TimerHeader onOpenEvaluation={() => setIsEvaluationOpen(true)} />
+            <VideoFeed />
+          </motion.div>
+
           <EvaluationSheet 
             isOpen={isEvaluationOpen} 
             onClose={() => setIsEvaluationOpen(false)} 
