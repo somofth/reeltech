@@ -30,6 +30,7 @@ export const TimerHeader: React.FC<TimerHeaderProps> = ({ onOpenEvaluation }) =>
         setTimeLeft((prev) => {
           if (prev <= 1) {
             setCanEvaluate(true);
+            onOpenEvaluation(); // Auto-open when time is up
             return 0;
           }
           return prev - 1;
@@ -37,7 +38,7 @@ export const TimerHeader: React.FC<TimerHeaderProps> = ({ onOpenEvaluation }) =>
       }, 1000);
     }
     return () => clearInterval(interval);
-  }, [isVideoPlaying, timeLeft]);
+  }, [isVideoPlaying, timeLeft, onOpenEvaluation]); // Added onOpenEvaluation to deps
 
   // Calculate progress percentage
   const progress = Math.max(0, Math.min(100, ((requiredTime - timeLeft) / requiredTime) * 100));
@@ -78,18 +79,16 @@ export const TimerHeader: React.FC<TimerHeaderProps> = ({ onOpenEvaluation }) =>
       </div>
 
       {/* Bottom Progress Bar */}
-      {!canEvaluate && (
-        <div className="absolute bottom-0 left-0 w-full z-20 pointer-events-none">
-          <div className="h-1.5 w-full bg-gray-800/30 backdrop-blur-sm">
-            <motion.div 
-              className="h-full bg-primary shadow-[0_0_10px_rgba(255,23,68,0.7)]"
-              initial={{ width: "0%" }}
-              animate={{ width: `${progress}%` }}
-              transition={{ ease: "linear", duration: 0.5 }} // Smooth transition
-            />
-          </div>
+      <div className="absolute bottom-0 left-0 w-full z-20 pointer-events-none">
+        <div className="h-1.5 w-full bg-gray-800/30 backdrop-blur-sm">
+          <motion.div 
+            className="h-full bg-primary shadow-[0_0_10px_rgba(255,23,68,0.7)]"
+            initial={{ width: "0%" }}
+            animate={{ width: `${progress}%` }}
+            transition={{ ease: "linear", duration: 0.5 }} // Smooth transition
+          />
         </div>
-      )}
+      </div>
     </>
   );
 };
