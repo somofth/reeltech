@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { MobileLayout } from './components/layout/MobileLayout';
 import { SplashScreen } from './components/splash/SplashScreen';
@@ -13,22 +13,25 @@ import { submitFeedback } from './services/firestore';
 import { auth } from './services/firebase';
 
 function App() {
-  const { isSplashVisible, activeVideoId, currentCampaignId } = useAppStore();
-  const [isEvaluationOpen, setIsEvaluationOpen] = useState(false);
+  const { isSplashVisible, activeVideoId, currentCampaignId, isEvaluationOpen, setEvaluationOpen } = useAppStore();
 
   useEffect(() => {
     initAuth();
-  }, []);
 
-  const handleEvaluationSubmit = async () => { // TODO: pass data
-    // In a real app, EvaluationSheet would pass data up or we use store
-    // For now, we assume data is handled in Sheet or we need to refactor Sheet to pass data
-    // Let's refactor Sheet in next step to pass data, 
-    // BUT for now I will just log and pretend. 
-    // ACTUALLY, I should refactor handleEvaluationSubmit to accept data.
-    
+    // Trigger for testing: Shift + X
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.shiftKey && (e.key === 'X' || e.key === 'x')) {
+        console.log("Debug Trigger: Opening Evaluation Sheet");
+        setEvaluationOpen(true);
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [setEvaluationOpen]);
+
+  const handleEvaluationSubmit = async () => {
     console.log("Submitting to Firestore...");
-    // Mock data for submission as Sheet internal state is not exposed yet
      try {
         await submitFeedback({
             campaignId: currentCampaignId || 'unknown',
@@ -51,7 +54,7 @@ function App() {
         nextEl.scrollIntoView({ behavior: 'smooth' });
       }
     }
-    setIsEvaluationOpen(false);
+    setEvaluationOpen(false);
   };
 
   return (
@@ -61,22 +64,22 @@ function App() {
       {!isSplashVisible && (
         <>
           <motion.div
-            className="w-full h-full relative bg-black"
+            className="relative bg-black mx-auto overflow-hidden shadow-2xl"
             animate={{
               height: isEvaluationOpen ? '40vh' : '100%',
-              scale: isEvaluationOpen ? 0.95 : 1,
+              width: isEvaluationOpen ? '56%' : '100%', // Approx 9:16 aspect ratio width relative to screen
               borderRadius: isEvaluationOpen ? '20px' : '0px',
-              y: isEvaluationOpen ? 10 : 0,
+              y: isEvaluationOpen ? 16 : 0,
             }}
             transition={{ type: 'spring', damping: 25, stiffness: 300 }}
           >
-            <TimerHeader onOpenEvaluation={() => setIsEvaluationOpen(true)} />
+            <TimerHeader onOpenEvaluation={() => setEvaluationOpen(true)} />
             <VideoFeed />
           </motion.div>
 
           <EvaluationSheet 
             isOpen={isEvaluationOpen} 
-            onClose={() => setIsEvaluationOpen(false)} 
+            onClose={() => setEvaluationOpen(false)} 
             onSubmit={handleEvaluationSubmit} 
           />
         </>

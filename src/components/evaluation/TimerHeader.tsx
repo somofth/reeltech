@@ -42,6 +42,9 @@ export const TimerHeader: React.FC<TimerHeaderProps> = ({ onOpenEvaluation }) =>
   // Calculate progress percentage
   const progress = Math.max(0, Math.min(100, ((requiredTime - timeLeft) / requiredTime) * 100));
 
+  const { isEvaluationOpen } = useAppStore();
+  if (isEvaluationOpen) return null;
+
   return (
     <>
       <div className="absolute top-0 left-0 w-full z-20 p-6 pointer-events-none flex justify-end">

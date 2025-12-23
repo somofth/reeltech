@@ -13,6 +13,8 @@ interface AppState {
   setCurrentCampaignId: (id: string | null) => void;
   isVideoPlaying: boolean;
   setVideoPlaying: (playing: boolean) => void;
+  isEvaluationOpen: boolean;
+  setEvaluationOpen: (open: boolean) => void;
 }
 
 export const useAppStore = create<AppState>((set) => ({
@@ -27,4 +29,6 @@ export const useAppStore = create<AppState>((set) => ({
   setCurrentCampaignId: (id) => set({ currentCampaignId: id }),
   isVideoPlaying: false,
   setVideoPlaying: (playing) => set({ isVideoPlaying: playing }),
+  isEvaluationOpen: false,
+  setEvaluationOpen: (open) => set({ isEvaluationOpen: open }),
 }));
