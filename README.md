@@ -1,73 +1,89 @@
-# React + TypeScript + Vite
+# ReelTech (릴테크)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+숏폼 영상 기반의 다면 평가 및 리워드 앱테크 플랫폼입니다.  
+영상 크리에이터에게는 양질의 피드백을, 시청자에게는 리워드를 제공하는 생태계를 지향합니다.
 
-Currently, two official plugins are available:
+## 📱 프로젝트 개요 for Demo3
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+이 프로젝트는 `Demo3` 버전으로, 핵심 UX/UI 플로우와 기능 구현에 집중한 프로토타입입니다.
 
-## React Compiler
+- **타겟 디바이스:** 모바일 웹 (Mobile-first Design)
+- **주요 색상:** Tomato Red (`#FF6347`) - 눈이 편안하면서도 활기찬 테마
+- **핵심 경험:** 영상 시청 -> 평가 참여 -> 포인트 획득 -> 스토어 구매 -> 쿠폰 관리
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 🛠 기술 스택 (Tech Stack)
 
-## Expanding the ESLint configuration
+| 구분 | 기술 | 설명 |
+| --- | --- | --- |
+| **Framework** | **React** (Vite) | 빠르고 가벼운 개발 환경 및 SPA 구조 |
+| **Language** | **TypeScript** | 정적 타입 시스템을 통한 안정성 확보 |
+| **Styling** | **Tailwind CSS** | 유틸리티 퍼스트의 빠르고 일관된 스타일링 |
+| **State Mgt** | **Zustand** | 가볍고 직관적인 전역 상태 관리 (유저, 모달, 비디오 등) |
+| **Animation** | **Framer Motion** | 자연스러운 화면 전환 및 마이크로 인터랙션 (모달, 토스트 등) |
+| **Icons** | **Lucide React** | 깔끔하고 통일감 있는 벡터 아이콘 |
+| **Backend** | **Firebase** | Authentication, Firestore 연동 (베타) |
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## ✨ 주요 기능 (Key Features)
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### 1. 🎬 숏폼 비디오 피드 (Video Feed)
+- 틱톡/릴스 스타일의 **세로 풀스크린 스크롤**.
+- `Snap Scroll`을 적용하여 영상 단위로 정확하게 이동.
+- 현재 보고 있는 영상만 자동 재생, 스크롤 시 자동 일시정지.
+- **영상 길이:** 100% 모바일 뷰포트 대응.
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+### 2. ✅ 다면 평가 시스템 (Evaluation System)
+- **트리거:** 영상을 일정 시간 시청 시 상단 타이머 바 활성화 → 평가 진입 가능.
+- **평가 모달:**
+    - **별점:** 5점 만점의 직관적인 종합 평점.
+    - **세부 지표:** 노드(Node)와 간선(Edge)이 연결된 게이지바 UI를 통해 '재미', '유익함', '몰입도' 평가. 선택 시 토마토색 게이지 애니메이션.
+    - **한줄평:** 최소 5자 이상 입력 시 제출 버튼 활성화.
+- **낙관적 UI (Optimistic UI):** 제출 즉시 모달이 닫히고 다음 영상으로 자동 스와이프.
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### 3. 🎁 리워드 및 출석체크 (Rewards & Attendance)
+- **출석 체크:** 앱 최초 진입 시 출석 도장 모달 & 포인트 지급.
+- **평가 보상:** 평가 제출 성공 시 **"🎁 100포인트 획득!"** 토스트 팝업 애니메이션 노출.
+
+### 4. 🛒 포인트 스토어 (Point Store)
+- **상품 목록:** 카테고리별(전체/카페/편의점 등) 상품 조회 및 검색.
+- **구매 프로세스:** 획득한 포인트로 상품 구매 시도 → 포인트 차감 및 성공 모달.
+- **스크롤 헤더:** 스크롤 시 헤더가 자연스럽게 축소되어 상품 영역 확보.
+
+### 5. 🎫 마이 기프트 (My Gift)
+- **쿠폰 보관함:** 스토어에서 구매한 상품권이 이곳에 저장됨.
+- **상세 정보:** 상품 이미지, 카테고리, 유효기간(구매일로부터 30일) 자동 계산 표시.
+- **빈 화면 처리:** 보유 쿠폰이 없을 때의 안내 UI 제공.
+
+## 📂 폴더 구조 (Directory Structure)
+
+```
+src/
+├── components/
+│   ├── attendance/   # 출석 체크 모달
+│   ├── common/       # 공통 컴포넌트 (RewardToast 등)
+│   ├── evaluation/   # 평가 시트, 타이머 헤더
+│   ├── feed/         # 비디오 플레이어, 피드 컨테이너
+│   ├── layout/       # 모바일 레이아웃, 하단 네비게이션
+│   ├── profile/      # 마이 기프트 화면
+│   ├── splash/       # 스플래시 스크린
+│   └── store/        # 포인트 스토어 화면
+├── services/         # Firebase 및 Mock Data
+├── store/            # Zustand 전역 스토어 (useAppStore.ts)
+└── App.tsx           # 메인 라우팅 및 앱 구조
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 🚀 시작하기 (Getting Started)
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+1. **설치**
+    ```bash
+    npm install
+    ```
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+2. **개발 서버 실행**
+    ```bash
+    npm run dev
+    ```
+
+3. **빌드**
+    ```bash
+    npm run build
+    ```

@@ -132,7 +132,7 @@ export const StoreScreen: React.FC = () => {
                     key={product.id}
                     layoutId={product.id}
                     onClick={() => setSelectedProduct(product)}
-                    className="bg-white p-3 rounded-2xl shadow-sm border border-gray-100 flex flex-col gap-3 active:scale-95 transition-transform"
+                    className="bg-white p-3 rounded-2xl shadow-sm border border-gray-200 flex flex-col gap-3 active:scale-95 transition-transform"
                 >
                     <div className="aspect-square rounded-xl overflow-hidden bg-gray-100 relative">
                         <img src={product.image} alt={product.name} className="w-full h-full object-cover" />
