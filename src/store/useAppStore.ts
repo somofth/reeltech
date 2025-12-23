@@ -31,6 +31,10 @@ interface AppState {
   // Global Navigation & Points
   currentView: 'home' | 'store' | 'mygift';
   setCurrentView: (view: 'home' | 'store' | 'mygift') => void;
+  
+  isRewardToastVisible: boolean;
+  setRewardToastVisible: (visible: boolean) => void;
+
   userPoints: number;
   addPoints: (amount: number) => void;
   deductPoints: (amount: number) => void;
@@ -58,6 +62,10 @@ export const useAppStore = create<AppState>((set) => ({
 
   currentView: 'home',
   setCurrentView: (view) => set({ currentView: view }),
+
+  isRewardToastVisible: false,
+  setRewardToastVisible: (visible) => set({ isRewardToastVisible: visible }),
+
   userPoints: 3500,
   addPoints: (amount) => set((state) => ({ userPoints: state.userPoints + amount })),
   deductPoints: (amount) => set((state) => ({ userPoints: Math.max(0, state.userPoints - amount) })),

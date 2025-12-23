@@ -13,9 +13,20 @@ import { submitFeedback } from './services/firestore';
 import { auth } from './services/firebase';
 import { StoreScreen } from './components/store/StoreScreen';
 import { MyGiftScreen } from './components/profile/MyGiftScreen';
+import { RewardToast } from './components/common/RewardToast';
 
 function App() {
-  const { isSplashVisible, activeVideoId, currentCampaignId, isEvaluationOpen, setEvaluationOpen, currentView } = useAppStore();
+  const { 
+    isSplashVisible, 
+    activeVideoId, 
+    currentCampaignId, 
+    isEvaluationOpen, 
+    setEvaluationOpen, 
+    currentView,
+    isRewardToastVisible,
+    setRewardToastVisible,
+    addPoints
+  } = useAppStore();
 
   useEffect(() => {
     initAuth();
@@ -35,8 +46,18 @@ function App() {
   const handleEvaluationSubmit = async () => {
     // 1. Optimistic UI Update: Close modal immediately for responsiveness
     setEvaluationOpen(false);
+    
+    // Show Reward Toast
+    setRewardToastVisible(true);
+    addPoints(100);
 
-    // 2. Schedule Auto-scroll (wait for exit animation)
+    // Hide Toast after 2 seconds
+    setTimeout(() => setRewardToastVisible(false), 2000);
+
+    // 2. Schedule Auto-scroll (wait for exit animation 500ms)
+    // The user wants animation to play for 0.5s THEN swipe.
+    // Modal exit transition is ~300-500ms.
+    // If we wait 500ms here, it aligns perfectly.
     setTimeout(() => {
       // Use getState() to ensure we have the latest activeVideoId
       const freshActiveId = useAppStore.getState().activeVideoId;
@@ -50,7 +71,7 @@ function App() {
           nextEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
       }
-    }, 500);
+    }, 800); // 500ms -> 800ms gives a bit more time for the toast to "pop" before movement starts
 
     // 3. Process Background Submission
     console.log("Submitting to Firestore...");
@@ -72,6 +93,7 @@ function App() {
     <MobileLayout>
       <SplashScreen />
       <AttendanceModal />
+      <RewardToast isVisible={isRewardToastVisible} />
       {!isSplashVisible && (
         <>
           {currentView === 'home' && (
