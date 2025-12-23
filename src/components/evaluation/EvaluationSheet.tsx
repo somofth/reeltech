@@ -13,7 +13,7 @@ export const EvaluationSheet: React.FC<EvaluationSheetProps> = ({ isOpen, onClos
   const [metrics, setMetrics] = useState({ fun: 0, informative: 0, hook: 0 });
   const [comment, setComment] = useState('');
 
-  const isValid = rating > 0 && comment.length >= 20;
+  const isValid = rating > 0 && comment.length >= 5;
 
   const handleSubmit = () => {
     if (!isValid) return;
@@ -65,29 +65,49 @@ export const EvaluationSheet: React.FC<EvaluationSheetProps> = ({ isOpen, onClos
             {/* Detailed Metrics */}
             <div className="space-y-4 mb-6">
               {[
-                { label: '재미', key: 'fun' },
-                { label: '유익함', key: 'informative' },
-                { label: '몰입도', key: 'hook' },
+                { label: '이 영상이 얼마나 재미있었나요?', key: 'fun' },
+                { label: '정보가 유익했나요?', key: 'informative' },
+                { label: '영상에 얼마나 몰입되었나요?', key: 'hook' },
               ].map((metric) => (
                 <div key={metric.key} className="flex flex-col">
-                  <div className="flex justify-between mb-1">
+                  <div className="flex justify-between mb-2">
                     <span className="text-sm font-medium text-gray-700">{metric.label}</span>
                     <span className="text-xs text-primary font-bold">{metrics[metric.key as keyof typeof metrics]} / 5</span>
                   </div>
-                  <div className="flex justify-between bg-gray-100 p-2 rounded-lg">
-                    {[1, 2, 3, 4, 5].map((val) => (
-                       <button
-                         key={val}
-                         onClick={() => setMetrics(prev => ({ ...prev, [metric.key]: val }))}
-                         className={`w-8 h-8 rounded-full text-sm font-bold transition-colors ${
-                            metrics[metric.key as keyof typeof metrics] === val 
-                            ? 'bg-primary text-white shadow-md' 
-                            : 'bg-white text-gray-400 hover:bg-gray-200'
-                         }`}
-                       >
-                         {val}
-                       </button>
-                    ))}
+                  
+                  {/* Node-Edge Slider */}
+                  <div className="relative flex items-center justify-between px-2 h-10">
+                    {/* Background Line */}
+                    <div className="absolute left-2 right-2 h-1.5 bg-gray-200 top-1/2 -translate-y-1/2 -z-10 rounded-full" />
+                    
+                    {/* Active Line (Tomato with Opacity 60%) */}
+                    <motion.div 
+                        className="absolute left-2 h-1.5 bg-primary/60 top-1/2 -translate-y-1/2 -z-10 rounded-full"
+                        initial={{ width: 0 }}
+                        animate={{ width: `${((metrics[metric.key as keyof typeof metrics] - 1) / 4) * 100}%` }}
+                        style={{ 
+                            maxWidth: 'calc(100% - 1rem)' 
+                        }}
+                    />
+
+                    {[1, 2, 3, 4, 5].map((val) => {
+                       const currentVal = metrics[metric.key as keyof typeof metrics];
+                       const isActive = val <= currentVal;
+                       
+                       return (
+                        <button
+                          key={val}
+                          onClick={() => setMetrics(prev => ({ ...prev, [metric.key]: val }))}
+                          className={`w-8 h-8 rounded-full text-sm font-bold border-2 transition-all z-10 flex items-center justify-center ${
+                             isActive
+                             ? 'bg-primary border-primary text-white shadow-md scale-110' 
+                             : 'bg-white border-gray-300 text-gray-400 hover:border-gray-400'
+                          }`}
+                        >
+                          {val}
+                        </button>
+                       );
+                    })}
                   </div>
                 </div>
               ))}
@@ -96,12 +116,12 @@ export const EvaluationSheet: React.FC<EvaluationSheetProps> = ({ isOpen, onClos
             {/* Comment */}
             <div className="mb-6">
               <label className="text-sm font-semibold text-gray-500 mb-2 block">
-                한줄평 <span className="text-xs font-normal text-gray-400">({comment.length}/20자 이상)</span>
+                한줄평 <span className="text-xs font-normal text-gray-400">({comment.length}/5자 이상)</span>
               </label>
               <textarea
                 value={comment}
                 onChange={(e) => setComment(e.target.value)}
-                placeholder="영상에 대한 솔직한 평가를 남겨주세요 (20자 이상)..."
+                placeholder="영상에 대한 솔직한 평가를 남겨주세요 (5자 이상)..."
                 className="w-full bg-gray-50 border border-gray-200 rounded-xl p-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary/50 resize-none h-24"
               />
             </div>

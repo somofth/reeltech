@@ -4,8 +4,7 @@ import { CheckCircle, X } from 'lucide-react';
 import { useAppStore } from '../../store/useAppStore';
 
 export const AttendanceModal: React.FC = () => {
-  const { isSplashVisible } = useAppStore();
-  const [isVisible, setIsVisible] = useState(false);
+  const { isSplashVisible, isAttendanceOpen, setAttendanceOpen } = useAppStore();
   const [checkedIn, setCheckedIn] = useState(false);
 
   useEffect(() => {
@@ -15,16 +14,16 @@ export const AttendanceModal: React.FC = () => {
 
       if (lastDate !== today) {
         // Delay slightly for effect
-        const timer = setTimeout(() => setIsVisible(true), 500);
+        const timer = setTimeout(() => setAttendanceOpen(true), 500);
         return () => clearTimeout(timer);
       }
     }
-  }, [isSplashVisible]);
+  }, [isSplashVisible, setAttendanceOpen]);
 
   const handleClose = () => {
     const today = new Date().toDateString();
     localStorage.setItem('lastAttendanceDate', today);
-    setIsVisible(false);
+    setAttendanceOpen(false);
   };
 
   const handleClaim = () => {
@@ -37,7 +36,7 @@ export const AttendanceModal: React.FC = () => {
 
   return (
     <AnimatePresence>
-      {isVisible && (
+      {isAttendanceOpen && (
         <motion.div
           className="absolute inset-0 z-40 flex items-center justify-center bg-black/70 backdrop-blur-sm"
           initial={{ opacity: 0 }}
@@ -50,9 +49,7 @@ export const AttendanceModal: React.FC = () => {
             animate={{ scale: 1, y: 0 }}
             exit={{ scale: 0.8, y: 50 }}
           >
-             {/* Decorative Background */}
-             <div className="absolute -top-10 -right-10 w-32 h-32 bg-yellow-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob"></div>
-             <div className="absolute -bottom-10 -left-10 w-32 h-32 bg-primary rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-2000"></div>
+             {/* Decorative Background Removed */}
 
             <h2 className="text-2xl font-bold text-gray-800 mb-2 relative z-10">매일매일 출석체크!</h2>
             <p className="text-gray-500 mb-6 text-center text-sm relative z-10">오늘도 출석하고 포인트를 받아보세요.</p>

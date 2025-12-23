@@ -7,7 +7,7 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: '#FF1744', // Vivid Red
+        primary: '#FF6347', // Tomato Red
       },
       screens: {
         'xs': '480px',

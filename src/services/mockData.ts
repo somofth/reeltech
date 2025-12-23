@@ -37,3 +37,24 @@ export const MOCK_CAMPAIGNS: Campaign[] = [
     clientQuestion: '레시피 설명이 이해하기 쉬운가요?',
   },
 ];
+
+export interface Product {
+  id: string;
+  name: string;
+  category: 'convenience' | 'bakery' | 'coffee' | 'voucher';
+  price: number;
+  image: string;
+}
+
+export const MOCK_PRODUCTS: Product[] = [
+  { id: 'p1', name: '아이스 아메리카노', category: 'coffee', price: 4500, image: 'https://picsum.photos/seed/coffee/200/200' },
+  { id: 'p2', name: '카페 라떼', category: 'coffee', price: 5000, image: 'https://picsum.photos/seed/latte/200/200' },
+  { id: 'p3', name: '편의점 3천원권', category: 'convenience', price: 3000, image: 'https://picsum.photos/seed/cu/200/200' },
+  { id: 'p4', name: '단팥빵', category: 'bakery', price: 1500, image: 'https://picsum.photos/seed/bread/200/200' },
+  { id: 'p5', name: '문화상품권 5천원', category: 'voucher', price: 5000, image: 'https://picsum.photos/seed/voucher/200/200' },
+  { id: 'p6', name: '조각 케이크', category: 'bakery', price: 6500, image: 'https://picsum.photos/seed/cake/200/200' },
+  { id: 'p7', name: '초코 우유 200ml', category: 'convenience', price: 1200, image: 'https://picsum.photos/seed/chocomilk/200/200' },
+  { id: 'p8', name: '햄치즈 샌드위치', category: 'bakery', price: 4800, image: 'https://picsum.photos/seed/sandwich/200/200' },
+  { id: 'p9', name: '백화점 상품권 1만원', category: 'voucher', price: 10000, image: 'https://picsum.photos/seed/giftcard/200/200' },
+  { id: 'p10', name: '딸기 요거트 스무디', category: 'coffee', price: 5800, image: 'https://picsum.photos/seed/strawberry/200/200' },
+];

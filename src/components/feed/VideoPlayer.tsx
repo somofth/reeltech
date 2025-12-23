@@ -9,16 +9,16 @@ interface VideoPlayerProps {
 }
 
 export const VideoPlayer: React.FC<VideoPlayerProps> = ({ campaign, isActive }) => {
-  const { setVideoPlaying, isEvaluationOpen } = useAppStore();
+  const { setVideoPlaying, isEvaluationOpen, isAttendanceOpen } = useAppStore();
 
   useEffect(() => {
-    if (isActive) {
+    if (isActive && !isAttendanceOpen) {
       // Simulate video loading/starting
       setVideoPlaying(true);
     } else {
       setVideoPlaying(false);
     }
-  }, [isActive, setVideoPlaying]);
+  }, [isActive, setVideoPlaying, isAttendanceOpen]);
 
   return (
     <div className="w-full h-full relative bg-gray-900 flex items-center justify-center snap-center shrink-0 overflow-hidden">
